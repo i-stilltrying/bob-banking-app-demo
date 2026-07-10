@@ -70,6 +70,11 @@ def withdraw():
     if request.method == "POST":
         raw = request.form.get("amount", "").strip()
 
+        # Validation check 1: amount field must not be empty
+        if not raw:
+            flash("Amount is required", "danger")
+            return render_template("withdraw.html"), 400
+
         # Parse amount
         try:
             amount = float(raw)
@@ -77,9 +82,9 @@ def withdraw():
             flash("Please enter a valid numeric amount.", "danger")
             return render_template("withdraw.html"), 400
 
-        # Must be positive
+        # Validation check 2: amount must be a positive number
         if amount <= 0:
-            flash("Withdrawal amount must be greater than zero.", "danger")
+            flash("Amount must be greater than zero", "danger")
             return render_template("withdraw.html"), 400
 
         # Fetch account fresh from DB
@@ -89,12 +94,9 @@ def withdraw():
             flash("Account not found.", "danger")
             return redirect(url_for("auth.login"))
 
-        # Insufficient funds check
+        # Validation check 3: amount must not exceed current balance
         if amount > account["balance"]:
-            flash(
-                f"Insufficient funds. Your current balance is ${account['balance']:,.2f}.",
-                "danger",
-            )
+            flash("Insufficient funds", "danger")
             return render_template("withdraw.html"), 400
 
         new_balance = account["balance"] - amount
