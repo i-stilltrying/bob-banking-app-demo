@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+.venv/
+ENV/
+env/
+
+# Flask / application
+instance/
+.env
+*.env
+
+# SQLite database
+BACKEND/banking.db
+
+# macOS
+.DS_Store
+
+# Test artefacts
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# Editor
+.vscode/
+*.swp
