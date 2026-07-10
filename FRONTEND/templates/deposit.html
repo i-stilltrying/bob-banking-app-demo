@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Deposit — SecureBank{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-2">
+  <div class="col-12 col-sm-10 col-md-6 col-lg-5">
+
+    <div class="card">
+      <div class="card-header bg-success text-white py-3">
+        <h5 class="mb-0 text-center">
+          <i class="bi bi-arrow-down-circle me-2"></i>Deposit Funds
+        </h5>
+      </div>
+
+      <div class="card-body p-4">
+        <p class="text-muted mb-4">
+          Enter the amount you wish to deposit. The amount must be greater than $0.00.
+        </p>
+
+        <form method="POST" action="{{ url_for('transactions.deposit') }}" novalidate>
+
+          <div class="mb-4">
+            <label for="amount" class="form-label fw-semibold">Amount (USD)</label>
+            <div class="input-group">
+              <span class="input-group-text">$</span>
+              <input
+                type="number"
+                id="amount"
+                name="amount"
+                class="form-control form-control-lg"
+                placeholder="0.00"
+                min="0.01"
+                step="0.01"
+                required
+                autocomplete="off"
+              />
+            </div>
+            <div class="form-text">Minimum deposit: $0.01</div>
+          </div>
+
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-success btn-lg">
+              <i class="bi bi-check-circle me-2"></i>Confirm Deposit
+            </button>
+            <a href="{{ url_for('dashboard.dashboard') }}" class="btn btn-outline-secondary">
+              <i class="bi bi-arrow-left me-2"></i>Back to Dashboard
+            </a>
+          </div>
+
+        </form>
+      </div>
+    </div><!-- /card -->
+
+  </div>
+</div>
+{% endblock %}
